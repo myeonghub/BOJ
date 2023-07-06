@@ -1,0 +1,52 @@
+def mul (w,e,r):
+  i,j,k,g,h=0,0,0,0,0
+  mul1=[]
+  for i in range(w):
+    k=e[i]*r[i]
+    g+=k
+  mul1.append(g)
+  for h in range(w):
+    k=e[i+h]*r[h]
+    g+=k
+  mul1.append(g)
+
+  print(mul1)
+def sum (a,b):
+  y=0
+  u=0
+  sum1=[]
+  for y in a:
+    y += b[u]
+    u+=1
+    sum1.append(y)
+  print(sum1)
+
+a,b=map(int, input("A 행렬의 크기를 입력하세요: ").split())
+c,d=map(int, input("B 행렬의 크기를 입력하세요: ").split())
+k=input('연산의 종류는?: ')
+o=[]
+if k=='+' :
+    if a==c and b==d :
+        print("A %s B가 가능한가?: ",k)
+        print("O")
+        p=list(map(int, input("A의 원소들은?: ").split(","))) 
+        q=list(map(int, input("B의 원소들은?: ").split(",")))
+        print("A %s B의 결과는?: ",k)
+        sum(p,q)
+    else :
+        print("X")
+    
+
+elif k=='*' :
+    if b==c :
+        print("A %s B가 가능한가?: ",k)
+        print("O")
+        p=list(map(int, input("A의 원소들은?: ").split(","))) 
+        q=list(map(int, input("B의 원소들은?: ").split(",")))
+        print("A %s B의 결과는?: ",k)
+        mul(b,p,q)
+    else:
+        print("X")
+    
+
+   
