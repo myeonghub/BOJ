@@ -11,7 +11,7 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     StringBuffer sb = new StringBuffer();
     char[][] k=new char[5][15];
-    int max=0;
+    int max=0;//문자열중 가장 긴 것 체크
     for(int i=0;i<5;i++){
         String y = sc.next();
         if(max < y.length()) max = y.length();
