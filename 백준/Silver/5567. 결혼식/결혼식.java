@@ -42,27 +42,24 @@ public class Main {
 
     }
 
-    public static void bfs(int start) {
-        Queue<int[]> que = new LinkedList<>();
-        que.add(new int[]{start, 0});  // 큐에 (노드, 깊이) 저장
-        visit[start] = true;
-
-        while (!que.isEmpty()) {
-            int[] current = que.poll();
-            int person = current[0];
-            int depth = current[1];
-
-            // 깊이 2까지만 탐색 (친구와 친구의 친구)
-            if (depth >= 2) {
+    public static void bfs(int a) {
+        Queue<int[] > que = new LinkedList<>();
+        count =0;
+        que.add(new int [] {a,0});
+        int [] tmp = new int[2];
+        
+        while (!que.isEmpty()){
+            
+            tmp = que.poll();
+            int friend = tmp[1];
+            if(friend>=2){
                 continue;
             }
-
-            // 친구 탐색
-            for (int i = 1; i <= n; i++) {
-                if (arr[person][i] == 1 && !visit[i]) {
-                    visit[i] = true;
-                    count++;  // 초대할 친구 수 증가
-                    que.add(new int[]{i, depth + 1});  // 다음 친구 탐색, 깊이 증가
+            for(int i=1;i<=n;i++){
+                if(arr[tmp[0]][i]==1&&!visit[i]){
+                    count++;
+                    visit[i]= true;
+                    que.add(new int [] {i,friend+1});
                 }
             }
         }
