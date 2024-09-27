@@ -13,21 +13,25 @@ public class Main {
     static int []count ;
     static int[] dy= {1,0,0,-1};
     static int[] dx= {0,1,-1,0};
+    static int max;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
 
         arr = new int[n][n];
-
+        max = 0;
         count = new int[101];
         for(int i=0;i<n;i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             for(int j=0;j<n;j++){
                 arr[i][j] = Integer.parseInt(st.nextToken());
+                if(max<arr[i][j]){
+                    max = arr[i][j];
+                }
             }
         }
-        for(k=1;k<100+1;k++) {
+        for(k=1;k<=max;k++) {
             check = new boolean[n][n];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
