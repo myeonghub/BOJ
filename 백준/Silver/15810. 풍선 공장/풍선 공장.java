@@ -32,6 +32,7 @@ public class Main {
             long start = 0;
             long end = arr[0] * m;
 
+            long tmp = Long.MAX_VALUE;
             while(start<=end){
                 long mid = (start+end)/2;
                 long cnt = pungsun(mid, arr);
@@ -39,8 +40,15 @@ public class Main {
                 if(cnt<m){
                     start = mid +1;
                 }
-                else {
-                    end = mid -1;
+                else if(cnt>m){
+                    end = mid -1 ;
+                }
+                else{
+                    if (tmp > mid) {
+                        tmp = mid;
+                    }
+                    end = mid - 1;
+
                 }
             }
 
