@@ -28,7 +28,7 @@ public class Main {
             que.add(new road(a,b,v));
 
         }
-        Comparator.comparingInt(road::getv);
+
         System.out.println(solution(que,n));
     }
     static int solution(PriorityQueue<road> que , int n){
@@ -45,7 +45,7 @@ public class Main {
             if(a==b){
                 continue;
             }
-            
+
             cnt++;
             if(cnt ==n-1){
                 break;
