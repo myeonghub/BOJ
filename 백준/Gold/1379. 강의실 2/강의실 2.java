@@ -3,83 +3,85 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
 
         StringTokenizer st;
-        List<Gangui> lectures = new ArrayList<>();
+        List<Gangui> list = new ArrayList<>();
 
-        for(int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int g = Integer.parseInt(st.nextToken());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
 
-            lectures.add(new Gangui(g, s, e));
+            list.add(new Gangui(g, s, e));
         }
 
-        lectures.sort(Comparator.comparingInt(l -> l.s));
+        list.sort(Comparator.comparingInt(l -> l.s));
 
-        int[] arr = solution(N, lectures);
+        int[] arr = solution(N, list);
 
-        for(int i : arr){
+        for (int i : arr) {
             System.out.println(i);
         }
     }
 
-    static int[] solution(int N, List<Gangui> lectures){
+    static int[] solution(int N, List<Gangui> list) {
         int[] arr = new int[N + 1];
 
-        PriorityQueue<Room> roomQueue = new PriorityQueue<>(Comparator.comparingInt(r -> r.endTime));
-        PriorityQueue<Integer> reusable = new PriorityQueue<>();
+        PriorityQueue<Room> roomQueue = new PriorityQueue<>(Comparator.comparingInt(r -> r.e));
 
-        int roomCount = 0;
+        PriorityQueue<Integer> reque = new PriorityQueue<>();
 
-        for (Gangui lec : lectures) {
-            while (!roomQueue.isEmpty() && roomQueue.peek().endTime <= lec.s) {
-                reusable.offer(roomQueue.poll().roomNum);
+        int cnt = 0;
+
+        for (Gangui lec : list) {
+            while (!roomQueue.isEmpty() && roomQueue.peek().e <= lec.s) {
+                reque.add(roomQueue.poll().g);
             }
 
-            int assignedRoom;
-            if (!reusable.isEmpty()) {
-                assignedRoom = reusable.poll();
+            int a;
+
+            if (!reque.isEmpty()) {
+                a = reque.poll();
             } else {
-                assignedRoom = ++roomCount;
+                a = ++cnt;
             }
 
-            arr[lec.g] = assignedRoom;
-            roomQueue.offer(new Room(lec.e, assignedRoom));
+            arr[lec.g] = a;
+            roomQueue.add(new Room(lec.e, a));
         }
 
-        arr[0] = roomCount;
+        arr[0] = cnt;
         return arr;
     }
 
-    static class Gangui{
+    static class Gangui {
         int g;
         int s;
         int e;
 
-        Gangui(int g, int s, int e){
+        Gangui(int g, int s, int e) {
             this.g = g;
             this.s = s;
             this.e = e;
         }
 
-        public int getE(){
+        public int getE() {
             return e;
         }
     }
 
     static class Room {
-        int endTime;
-        int roomNum;
+        int e;
+        int g;
 
-        Room(int endTime, int roomNum) {
-            this.endTime = endTime;
-            this.roomNum = roomNum;
+        Room(int e, int g) {
+            this.e = e;
+            this.g = g;
         }
     }
 }
