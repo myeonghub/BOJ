@@ -9,14 +9,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        StringBuilder sb = new StringBuilder();
-
         int[] arr = new int[n];
         boolean [] check = new boolean[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++){
+        for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
+
+        System.out.println(solution(n,check,arr));
+    }
+
+    static int solution(int n ,boolean[] check, int[] arr){
         for(int j=0;j<n;j++) {
             check[j] = false;
             if(arr[j]==1){
@@ -29,12 +32,11 @@ public class Main {
             }
         }
         int cnt =0;
-        for(int i=0;i<n;i++){
+        for(int i = 0;i < n ;i++){
             if(!check[i]){
                 cnt++;
             }
         }
-
-        System.out.println(cnt);
+        return cnt;
     }
 }
