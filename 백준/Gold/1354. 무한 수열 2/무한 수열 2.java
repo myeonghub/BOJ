@@ -1,49 +1,68 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
+
 
 public class Main {
-    static long N ,P,Q,X,Y;
-    static Map<Long,Long> mp = new HashMap<>();
+    static Long n , p, q;
+    static int m;
+    static Long x , y;
+    static int cnt;
+
+    static int paint;
+    static int area;
+
+
+
+    static int[] X = {0,0,-1,1};
+    static int[] Y = {1,-1,0,0};
+
+    static HashMap<Long,Long> hash = new HashMap<>();
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        N = Long.parseLong(st.nextToken());
-        P = Long.parseLong(st.nextToken());
-        Q = Long.parseLong(st.nextToken());
-        X = Long.parseLong(st.nextToken());
-        Y = Long.parseLong(st.nextToken());
+        n = Long.parseLong(st.nextToken());
 
-        mp.put(0L,1L);
+        p = Long.parseLong(st.nextToken());
 
-        System.out.println(DP(N));
+        q = Long.parseLong(st.nextToken());
+
+        x = Long.parseLong(st.nextToken());
+
+        y = Long.parseLong(st.nextToken());
+
+        hash.put(0l,1l);
+
+
+        System.out.println(dp(n));
+
     }
 
-    public static long DP(long n){
-        if(mp.containsKey(n)){
-            return mp.get(n);
+    static long dp (Long k){
+        if(hash.containsKey(k)){
+            return hash.get(k);
         }
-        long first = 0;
-        long second = 0;
-        if((long)Math.floor(n/P)-X >0 ) {
-            first = DP((long) Math.floor(n / P) - X);
+        long f;
+        long s;
+
+        if((k/p - x) < 0l){
+             f = 1;
+        }else{
+             f = dp((long)Math.floor(k/p) - x);
         }
-        else{
-            first = DP(0);
+        if((k/q) - y < 0l){
+             s = 1;
         }
-        if( (long)Math.floor(n/Q)-Y >0){
-            second = DP((long)Math.floor(n/Q)-Y);
-        }
-        else{
-            second = DP(0);
+        else {
+             s = dp((long) Math.floor(k / q) - y);
         }
 
+        hash.put(k,f+s);
 
-        mp.put(n,first+second);
-        return first+second;
+        return f+s;
     }
 }
+
