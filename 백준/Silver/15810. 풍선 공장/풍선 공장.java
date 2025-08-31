@@ -1,69 +1,89 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.math.BigInteger;
+import java.util.*;
+
+
+//class Node implements Comparable<Node>{
+//    int y;
+//    int x;
+//    int wall;
+//
+//    public Node(int y, int x, int wall) {
+//        this.y = y;
+//        this.x = x;
+//        this.wall = wall;
+//    }
+//
+//    @Override
+//    public int compareTo(Node o) {
+//        // 오름차순
+//        return wall - o.wall;
+//    }
+//}
+
 
 public class Main {
-        static long n,m;
-        public static void main(String[] args)throws Exception {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int n , p, q;
+    static int m , k;
+    static Long x , y;
+    static int cnt;
 
-            StringTokenizer st = new StringTokenizer(br.readLine());
-             n = Long.parseLong(st.nextToken());
-             m = Long.parseLong(st.nextToken());
+    static int paint;
+    static int area;
 
 
-            long[] arr = new long[(int)n];
 
-            st = new StringTokenizer(br.readLine());
+    static int[] X = {0,0,-1,1};
+    static int[] Y = {1,-1,0,0};
 
-            for(int i=0;i<n;i++){
-                arr[i] = Long.parseLong(st.nextToken());
-            }
-            Arrays.sort(arr);
-            long result = solution(arr);
 
-            System.out.println(result +1 );
 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+
+        StringBuilder sb = new StringBuilder();
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+
+
+        int[] a = new int[n];
+
+        st = new StringTokenizer(br.readLine());
+
+        for(int i = 0 ; i < n; i++){
+            a[i] = Integer.parseInt(st.nextToken());
         }
 
+        Arrays.sort(a);
 
-        public static long solution(long[] arr){
-            long start = 0;
-            long end = arr[0] * m;
 
-            long tmp = Long.MAX_VALUE;
-            while(start<=end){
-                long mid = (start+end)/2;
-                long cnt = pungsun(mid, arr);
+        long start = 0;
+        long end = (long)a[0] * (long)m;
 
-                if(cnt<m){
-                    start = mid +1;
+
+            while (start <= end){
+                long mid = (start + end)/2;
+                long count = 0;
+                for(int i = 0; i < n; i++){
+                    count += mid / a[i];
                 }
-                else if(cnt>m){
-                    end = mid -1 ;
-                }
-                else{
-                    if (tmp > mid) {
-                        tmp = mid;
-                    }
+                if(count >= m){
                     end = mid - 1;
-
+                }
+                else {
+                    start = mid + 1;
                 }
             }
+        System.out.println(start);
 
-            return end;
-
-        }
-
-
-        public static  long  pungsun(long k , long[] arr){
-            long sum =0;
-
-            for(int i=0;i<n;i++){
-                sum += (k /arr[i]);
-            }
-            return sum;
-        }
     }
+
+
+}
 
