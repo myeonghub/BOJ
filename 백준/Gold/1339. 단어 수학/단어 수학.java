@@ -1,38 +1,79 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Collections;
+import java.math.BigInteger;
+import java.util.*;
+
+
+//class Node implements Comparable<Node>{
+//    int y;
+//    int x;
+//    int wall;
+//
+//    public Node(int y, int x, int wall) {
+//        this.y = y;
+//        this.x = x;
+//        this.wall = wall;
+//    }
+//
+//    @Override
+//    public int compareTo(Node o) {
+//        // 오름차순
+//        return wall - o.wall;
+//    }
+//}
+
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    static int n , p, q;
+    static int m , k;
+    static Long x , y;
+    static int cnt;
+
+    static int paint;
+
+
+
+
+    static int[] X = {0,0,-1,1};
+    static int[] Y = {1,-1,0,0};
+
+    static int[] alpa = new int[26];
+
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
+        n = Integer.parseInt(br.readLine());
 
         String[] str = new String[n];
-        for(int i=0;i<n;i++){
+        for(int i = 0 ; i < n ; i ++){
             str[i] = br.readLine();
+            solution(str[i]);
         }
-        Arrays.sort(str, ( a,  b) ->   b.length() - a.length());
-        System.out.println(solution(str));
 
-    }
-    static int solution(String[] str ){
-        int [] arr = new int[26];
-        Arrays.fill(arr,0);
-        for(int i=0;i<str.length;i++){
-            for(int j=str[i].length()-1;j>=0;j--){
-                arr[str[i].charAt(j) - 'A'] += (int) Math.pow(10, str[i].length() - 1 - j );
-            }
-        }
-        Arrays.sort(arr);
-        int sum =0;
-        int j =25;
-        for(int i=9;i>=0;i--){
-            sum += arr[j] * i;
+        Arrays.sort(alpa);
+
+        int j = 9;
+        int sum = 0;
+        for(int i = 25; i >= 0; i--){
+            sum += alpa[i] * j;
             j--;
         }
-        return sum;
+
+        System.out.println(sum);
+    }
+    static void solution(String str ) {
+        char[] ch = str.toCharArray();
+        int k = ch.length - 1;
+        for(int i = 0 ; i < ch.length; i++){
+            alpa[ch[i] - 'A'] += (int)Math.pow(10,k);
+            k--;
+        }
+
     }
 
+
+
 }
+
